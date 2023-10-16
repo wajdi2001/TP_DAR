@@ -30,21 +30,22 @@ public class Server {
                 // Effectue l'opération mathématique en fonction de l'opérateur
                 if (op.equals("+")) {
                     res = nb1 + nb2;
-                    op1.setRes(res);
+
                 } else if (op.equals("-")) {
                     res = nb1 - nb2;
-                    op1.setRes(res);
+
                 } else if (op.equals("*")) {
                     res = nb1 * nb2;
-                    op1.setRes(res);
+
                 } else if (op.equals("/")) {
                     if (nb2 != 0) {
                         res = (double) nb1 / nb2;
-                        op1.setRes(res);
+
                     } else {
                         System.out.println("Division par zéro impossible.");
                     }
                 }
+                op1.setRes(res);
 
                 // Envoie le résultat au client
                 oos.writeObject(op1);
