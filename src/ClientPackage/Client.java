@@ -1,4 +1,4 @@
-package ClientPackageObj;
+package ClientPackage;
 
 import java.io.IOException;
 import java.io.InputStream;

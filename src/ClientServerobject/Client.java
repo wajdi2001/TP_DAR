@@ -1,4 +1,4 @@
-package ClientServer;
+package ClientServerobject;
 
 import java.io.*;
 import java.net.Socket;
@@ -54,10 +54,10 @@ public class Client {
             oos.writeObject(op1);
 
             // Le serveur renvoie un résultat sous forme de double
-            double result = (Double) ois.readObject();
+            Operation op2= (Operation) ois.readObject();
 
             // Affiche le résultat à l'utilisateur
-            System.out.println("Résultat : " + result);
+            System.out.println("Résultat : " + op2.getRes());
 
             // Ferme la connexion avec le serveur
             s.close();
