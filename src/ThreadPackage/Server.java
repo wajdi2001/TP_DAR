@@ -1,9 +1,8 @@
 package ThreadPackage;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import ClientServerobject.Operation;
+
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -54,9 +53,46 @@ class ClientProcess extends Thread {
             String response = "Bienvenue, vous êtes le client numéro " + index + ". Votre @IP: " + socket.getRemoteSocketAddress();
             pw.println(response);
 
+            OutputStream os = socket.getOutputStream(); // Obtient un flux de sortie
+            InputStream is = socket.getInputStream(); // Obtient un flux d'entrée
+            ObjectOutputStream oos = new ObjectOutputStream(os);
+            ObjectInputStream ois = new ObjectInputStream(is);
+
+            // Lecture de l'objet d'opération envoyé par le client
+            ClientServerobject.Operation op1 = (Operation) ois.readObject();
+            int nb1 = op1.getNb1();
+            int nb2 = op1.getNb2();
+            String op = op1.getOp();
+            double res = 0;
+
+            // Effectue l'opération mathématique en fonction de l'opérateur
+            if (op.equals("+")) {
+                res = nb1 + nb2;
+
+            } else if (op.equals("-")) {
+                res = nb1 - nb2;
+
+            } else if (op.equals("*")) {
+                res = nb1 * nb2;
+
+            } else if (op.equals("/")) {
+                if (nb2 != 0) {
+                    res = (double) nb1 / nb2;
+
+                } else {
+                    System.out.println("Division par zéro impossible.");
+                }
+            }
+            op1.setRes(res);
+
+            // Envoie le résultat au client
+            oos.writeObject(op1);
+
             socket.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (ClassNotFoundException ex) {
+            throw new RuntimeException(ex);
         }
-    }
-}
+
+    }}
