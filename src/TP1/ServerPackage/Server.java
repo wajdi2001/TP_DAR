@@ -1,4 +1,4 @@
-package ServerPackage;
+package TP1.ServerPackage;
 
 import java.io.IOException;
 import java.io.InputStream;

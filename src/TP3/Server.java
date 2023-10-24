@@ -1,6 +1,6 @@
-package ThreadPackage;
+package TP3;
 
-import ClientServerobject.Operation;
+import TP2.ClientServerobject.Operation;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -59,7 +59,7 @@ class ClientProcess extends Thread {
             ObjectInputStream ois = new ObjectInputStream(is);
 
             // Lecture de l'objet d'opération envoyé par le client
-            ClientServerobject.Operation op1 = (Operation) ois.readObject();
+            TP2.ClientServerobject.Operation op1 = (Operation) ois.readObject();
             int nb1 = op1.getNb1();
             int nb2 = op1.getNb2();
             String op = op1.getOp();

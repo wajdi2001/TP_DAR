@@ -1,4 +1,4 @@
-package ThreadPackage;
+package TP2.ClientServerobject;
 
 import java.io.Serializable;
 

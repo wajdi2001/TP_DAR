@@ -1,4 +1,4 @@
-package ClientServerobject;
+package TP2.ClientServerobject;
 
 import java.io.*;
 import java.net.ServerSocket;

@@ -1,10 +1,8 @@
-package ClientServerChaine;
+package TP2.ClientServerChaine;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.Scanner;
 
 public class Server {
     public static void main(String[] args) {

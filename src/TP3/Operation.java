@@ -1,4 +1,4 @@
-package ClientServerobject;
+package TP3;
 
 import java.io.Serializable;
 

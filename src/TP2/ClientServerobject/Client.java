@@ -1,6 +1,4 @@
-package ThreadPackage;
-
-import ClientServerobject.Operation;
+package TP2.ClientServerobject;
 
 import java.io.*;
 import java.net.Socket;
@@ -9,19 +7,13 @@ import java.util.Scanner;
 public class Client {
     public static void main(String[] args) {
         try {
-            Socket socket = new Socket("192.168.248.1", 1234);
-            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
-            OutputStream os = socket.getOutputStream();
+            System.out.println("Je suis un client");
 
-            // Obtient un flux d'entrée à partir de la socket pour recevoir des données
-            InputStream is = socket.getInputStream();
-            // Envoyer un message au serveur
-            pw.println("Bonjour je suis un client dans ce serveur");
+            // Établissement d'une connexion avec un serveur local sur le port 1234
+            Socket s = new Socket("192.168.248.1", 1234);
+            System.out.println("Je suis connecté au serveur");
 
-            // Lire la réponse du serveur
-            String serverResponse = br.readLine();
-            System.out.println(serverResponse);
+            // Déclaration de variables pour les nombres, l'opérateur et le résultat
             int nb1;
             int nb2;
             String op;
@@ -46,7 +38,15 @@ public class Client {
             op = scanner.nextLine();
 
             // Crée un objet d'opération avec les valeurs saisies
-            ClientServerobject.Operation op1 = new Operation(nb1, nb2, op);
+            Operation op1 = new Operation(nb1, nb2, op);
+
+            // Obtient un flux de sortie à partir de la socket pour envoyer des données
+            OutputStream os = s.getOutputStream();
+
+            // Obtient un flux d'entrée à partir de la socket pour recevoir des données
+            InputStream is = s.getInputStream();
+
+            // Crée des objets pour sérialiser (envoyer) et désérialiser (recevoir) des objets
             ObjectOutputStream oos = new ObjectOutputStream(os);
             ObjectInputStream ois = new ObjectInputStream(is);
 
@@ -59,11 +59,13 @@ public class Client {
             // Affiche le résultat à l'utilisateur
             System.out.println("Résultat : " + op2.getRes());
 
-            socket.close();
+            // Ferme la connexion avec le serveur
+            s.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 }
