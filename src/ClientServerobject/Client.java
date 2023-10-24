@@ -10,7 +10,7 @@ public class Client {
             System.out.println("Je suis un client");
 
             // Établissement d'une connexion avec un serveur local sur le port 1234
-            Socket s = new Socket("localhost", 1234);
+            Socket s = new Socket("192.168.248.1", 1234);
             System.out.println("Je suis connecté au serveur");
 
             // Déclaration de variables pour les nombres, l'opérateur et le résultat

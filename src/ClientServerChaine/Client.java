@@ -9,7 +9,7 @@ public class Client {
     public static void main(String[] args) {
         try {
             System.out.println("Je suis un client");
-            Socket s = new Socket("localhost", 1234);
+            Socket s = new Socket("192.168.248.1", 1234);
             System.out.println("Je suis connecté au serveur");
 
             // Demandez à l'utilisateur de fournir une opération mathématique
