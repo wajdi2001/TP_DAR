@@ -1,32 +1,36 @@
 package TP4;
 
-import java.io.IOException;
-import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.DatagramPacket;
 import java.net.InetAddress;
-import java.net.SocketException;
 
-public class Server  {
+public class Server {
     public static void main(String[] args) {
         try {
-            DatagramSocket socket = new DatagramSocket(1234);
-            byte[] buf = new byte[1024];
-            while(true){
-            DatagramPacket packet = new DatagramPacket(buf, buf.length);
-            socket.receive(packet);
-            String received  = new String(packet.getData(),0, packet.getLength());
-            String msg ="Bonjour"+received;
-            byte[] bef1 = msg.getBytes();
-            DatagramPacket envoie =new DatagramPacket(bef1,bef1.length, InetAddress.getByName("localhost"),1234);
-            socket.send(envoie);
+            int serverPort = 1234;
+            DatagramSocket serverSocket = new DatagramSocket(serverPort);
+
+            System.out.println("Le serveur est en attente de connexions...");
+
+            while (true) {
+                byte[] receiveData = new byte[1024];
+                DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+                serverSocket.receive(receivePacket);
+
+                String clientMessage = new String(receivePacket.getData(), 0, receivePacket.getLength());
+                InetAddress clientAddress = receivePacket.getAddress();
+                int clientPort = receivePacket.getPort();
+
+                System.out.println("Message reçu du client " + clientAddress + ":" + clientPort + ": " + clientMessage);
+
+                // Réponse au client
+                String welcomeMessage = "Bienvenu " + clientMessage;
+                byte[] sendData = welcomeMessage.getBytes();
+                DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, clientAddress, clientPort);
+                serverSocket.send(sendPacket);
             }
-
-
-
-        } catch (SocketException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -1,31 +1,33 @@
 package TP4;
 
-import java.io.IOException;
-import java.net.*;
+import java.net.DatagramSocket;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
 
 public class Client {
-
     public static void main(String[] args) {
-
-
         try {
-           DatagramSocket socket = new DatagramSocket();
-           String msg ="Wajdi ben Moumen";
-           byte[] bef = msg.getBytes();
-            DatagramPacket packet =new DatagramPacket(bef,bef.length, InetAddress.getByName("localhost"),1234); 
-            socket.send(packet);
-            byte[] buf = new byte[1024];
-            DatagramPacket packet1 = new DatagramPacket(buf, buf.length);
-            socket.receive(packet1);
-            String received  = new String(packet1.getData(),0, packet1.getLength());
-            System.out.println(received);
+            DatagramSocket clientSocket = new DatagramSocket();
+            InetAddress serverAddress = InetAddress.getByName("localhost");
+            int serverPort = 1234;
 
-        } catch (SocketException e) {
-            throw new RuntimeException(e);
-        } catch (UnknownHostException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            String message = "Wajdi Ben Moumen";
+            byte[] sendData = message.getBytes();
+            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, serverAddress, serverPort);
+            clientSocket.send(sendPacket);
+
+            // Réception de la réponse du serveur
+            byte[] receiveData = new byte[1024];
+            DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+            clientSocket.receive(receivePacket);
+
+            String serverResponse = new String(receivePacket.getData(), 0, receivePacket.getLength());
+            System.out.println("Message du serveur: " + serverResponse);
+            System.out.println("Adresse du serveur: " + receivePacket.getAddress() + ", Port du serveur: " + receivePacket.getPort());
+
+            clientSocket.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
