@@ -38,7 +38,17 @@ public class Client {
             // Affiche la réponse du serveur ainsi que l'adresse et le port du serveur
             System.out.println("Message du serveur: " + serverResponse);
             System.out.println("Adresse du serveur: " + receivePacket.getAddress() + ", Port du serveur: " + receivePacket.getPort());
-
+            String heureMessage = "quelle heure est-il";
+            byte[] sendheureMessage = heureMessage.getBytes();
+            DatagramPacket sendPacketHeure = new DatagramPacket(sendheureMessage, sendheureMessage.length, serverAddress, serverPort);
+            clientSocket.send(sendPacketHeure);
+            // Réception de la réponse du serveur
+            byte[] receiveHeure = new byte[1024];
+            DatagramPacket receivePacket1 = new DatagramPacket(receiveHeure, receiveHeure.length);
+            clientSocket.receive(receivePacket1); // Attends la réponse du serveur
+            // Convertit la réponse en une chaîne de caractères
+            String serverResponse1 = new String(receivePacket1.getData(), 0, receivePacket1.getLength());
+            System.out.println(serverResponse1);
             // Ferme la socket du client
             clientSocket.close();
         } catch (Exception e) {
