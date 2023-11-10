@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/RMIConversion_Client.iml" filepath="$PROJECT_DIR$/RMIConversion_Client.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../RMIConversion_Server/src/rmiService/rmiService.iml" filepath="$PROJECT_DIR$/../RMIConversion_Server/src/rmiService/rmiService.iml" />
-    </modules>
-  </component>
-</project>
