@@ -1,7 +1,5 @@
 package TP4.ACT4_3.clients;
 
-import TP4.ACT4_3.UDPMessageReceiver;
-
 import java.net.DatagramSocket;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
@@ -17,8 +15,6 @@ public class Client2 {
             Scanner scanner =new Scanner(System.in);
             System.out.println("please enter your name!:");
             String username = scanner.nextLine(); // Nom d'utilisateur du client
-            Thread receiverThread = new Thread(new UDPMessageReceiver(clientSocket));
-            receiverThread.start();
 
 
             while (true) {

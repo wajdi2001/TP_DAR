@@ -11,39 +11,29 @@ public class Server {
     private static int clientPort = 9876;
 
     public static void main(String[] args) {
-        try (DatagramSocket serverSocket = new DatagramSocket(SERVER_PORT)) {
+        try (DatagramSocket serverSocket = new DatagramSocket(SERVER_PORT))
+        { // Crée un socket pour le serveur.
             System.out.println("Serveur de chat UDP démarré sur le port " + SERVER_PORT);
 
             while (true) {
                 byte[] receiveData = new byte[1024];
                 DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+
+                // Attend la réception d'un packet depuis un client.
                 serverSocket.receive(receivePacket);
 
                 InetAddress clientAddress = receivePacket.getAddress();
                 int clientPort = receivePacket.getPort();
-                clientAddresses.add(clientAddress);
-
+                clientAddresses.add(clientAddress); // Ajoute l'adresse du client à la liste.
+                // Convertit les données reçues en une chaîne de caractères (message).
                 String message = new String(receivePacket.getData(), 0, receivePacket.getLength());
                 System.out.println("Message reçu de " + clientAddress + ":" + clientPort + ": " + message);
 
-                broadcastMessage(message, serverSocket, clientAddress);
+
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Gestion basique des exceptions en imprimant la trace.
         }
     }
 
-    private static void broadcastMessage(String message, DatagramSocket serverSocket, InetAddress senderAddress) {
-        try {
-            byte[] sendData = message.getBytes();
-            for (InetAddress address : clientAddresses) {
-                if (!address.equals(senderAddress)) {
-                    DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, address, clientPort);
-                    serverSocket.send(sendPacket);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-}
+   }

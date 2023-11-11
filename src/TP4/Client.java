@@ -38,6 +38,12 @@ public class Client {
             // Affiche la réponse du serveur ainsi que l'adresse et le port du serveur
             System.out.println("Message du serveur: " + serverResponse);
             System.out.println("Adresse du serveur: " + receivePacket.getAddress() + ", Port du serveur: " + receivePacket.getPort());
+
+
+            //-------------------------------------------------TP4-2-------------------------------------------------------------------------------
+
+
+
             String heureMessage = "quelle heure est-il";
             byte[] sendheureMessage = heureMessage.getBytes();
             DatagramPacket sendPacketHeure = new DatagramPacket(sendheureMessage, sendheureMessage.length, serverAddress, serverPort);

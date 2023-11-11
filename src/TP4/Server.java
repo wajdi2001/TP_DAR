@@ -30,6 +30,8 @@ public class Server {
                 byte[] sendData = welcomeMessage.getBytes(); // Convertit le message de réponse en tableau de bytes
                 DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, clientAddress, clientPort); // Crée un paquet pour envoyer la réponse au client
                 serverSocket.send(sendPacket); // Envoie la réponse au client
+
+                //-----------------------------------------------TP4-2-----------------------------------
                 // Heure
                 byte[] receiveHeure = new byte[1024]; // Crée un tableau de bytes pour stocker les données reçues
                 DatagramPacket receivePacketHeure = new DatagramPacket(receiveHeure, receiveHeure.length); // Crée un paquet pour recevoir des données
